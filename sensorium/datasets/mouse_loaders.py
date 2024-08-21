@@ -19,6 +19,7 @@ from neuralpredictors.data.transforms import (
 
 from neuralpredictors.data.samplers import SubsetSequentialSampler
 
+
 def static_loader(
     path: str = None,
     batch_size: int = None,
@@ -271,7 +272,8 @@ def static_loader(
             if tier == "train"
             else SubsetSequentialSampler(subset_idx)
         )
-        dataloaders[tier] = DataLoader(dat, sampler=sampler, batch_size=batch_size)
+        dataloaders[tier] = DataLoader(
+            dat, sampler=sampler, batch_size=batch_size)
 
     return (data_key, dataloaders) if get_key else dataloaders
 
