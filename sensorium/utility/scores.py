@@ -51,7 +51,8 @@ def model_predictions(model, dataloader, data_key, device="cpu"):
                     (
                         output,
                         (
-                            model(images.to(device), data_key=data_key, **batch_kwargs)
+                            model(images.to(device),
+                                  data_key=data_key, **batch_kwargs)
                             .detach()
                             .cpu()
                         ),
@@ -130,7 +131,8 @@ def get_signal_correlations(
             repeats_responses, repeats_predictions
         ):
             mean_responses.append(repeat_responses.mean(axis=0, keepdims=True))
-            mean_predictions.append(repeat_predictions.mean(axis=0, keepdims=True))
+            mean_predictions.append(
+                repeat_predictions.mean(axis=0, keepdims=True))
 
         mean_responses = np.vstack(mean_responses)
         mean_predictions = np.vstack(mean_predictions)
@@ -206,7 +208,8 @@ def get_poisson_loss(
             dataloader=v, model=model, data_key=k, device=device
         )
         loss = output - target * np.log(output + eps)
-        poisson_loss[k] = np.mean(loss, axis=0) if avg else np.sum(loss, axis=0)
+        poisson_loss[k] = np.mean(
+            loss, axis=0) if avg else np.sum(loss, axis=0)
     if as_dict:
         return poisson_loss
     else:
